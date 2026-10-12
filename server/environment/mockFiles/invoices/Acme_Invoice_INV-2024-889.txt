@@ -1,0 +1,36 @@
+================================================================================
+INVOICE - ACME INDUSTRIAL SOLUTIONS
+================================================================================
+Invoice Number:    INV-2024-889
+Invoice Date:      2024-10-15
+Due Date:          2024-11-15
+Purchase Order:    PO-99214
+Currency:          USD
+
+Vendor Information:
+  Acme Industrial Solutions Inc.
+  742 Evergreen Terrace, Sector 7G
+  Springfield, OR 97477
+  Tax ID / EIN:    XX-9482103
+  Contact Email:   billing@acme-industrial.example.com
+
+Bill To:
+  Internal Enterprise Corp.
+  Accounts Payable Department
+  100 Innovation Way, Suite 400
+  San Francisco, CA 94105
+
+Line Items:
+  1. Industrial Sensor Array (Model AX-500)   x 10   @ $850.00   = $8,500.00
+  2. Enterprise Gateway Firmware License      x 1    @ $3,750.00 = $3,750.00
+  3. Installation & Calibration Services      x 1    @ $2,000.00 = $2,000.00
+
+--------------------------------------------------------------------------------
+Subtotal:                                                        $14,250.00
+Sales Tax (0.00% - Tax Exempt Certificate #EX-4421):             $0.00
+Shipping & Handling:                                             $0.00
+================================================================================
+TOTAL AMOUNT DUE:                                                $14,250.00
+================================================================================
+Payment Terms: Net 30
+Remittance Bank: First National Silicon Bank, Routing: 121000358, Acct: 948210442

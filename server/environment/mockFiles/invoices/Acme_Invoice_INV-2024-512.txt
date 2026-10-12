@@ -1,0 +1,19 @@
+================================================================================
+INVOICE - ACME INDUSTRIAL SOLUTIONS (ARCHIVED / OLDER)
+================================================================================
+Invoice Number:    INV-2024-512
+Invoice Date:      2024-05-10
+Due Date:          2024-06-10
+Purchase Order:    PO-88102
+Currency:          USD
+
+Vendor Information:
+  Acme Industrial Solutions Inc.
+  Contact Email: billing@acme-industrial.example.com
+
+Line Items:
+  1. Diagnostic Kit Module                     x 2   @ $1,200.00 = $2,400.00
+
+TOTAL AMOUNT DUE:                                                $2,400.00
+Status: PAID
+Payment Terms: Net 30

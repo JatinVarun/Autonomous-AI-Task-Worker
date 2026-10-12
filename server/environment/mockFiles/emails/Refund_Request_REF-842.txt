@@ -1,0 +1,16 @@
+From: sarah.connor@example.com
+To: support@internal-enterprise.com
+Subject: Refund Request - Ticket #REF-842 - Order ORD-99381
+Date: 2024-10-24 09:15:00 UTC
+
+Hello Support Team,
+
+I recently purchased the Developer Pro License under Order ORD-99381. 
+Due to team reorganization, we would like to request a full refund for this unused license. 
+The charged amount was $79.00.
+
+Could you please process this refund back to my original payment card?
+
+Thank you,
+Sarah Connor
+Customer ID: CUST-4412

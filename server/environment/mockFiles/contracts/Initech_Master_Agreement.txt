@@ -1,0 +1,13 @@
+================================================================================
+VENDOR MASTER AGREEMENT - MASTER-AGR-2024-041
+================================================================================
+Company:           Initech Technologies Ltd.
+Registration No:   IN-9948201
+Address:           4120 Technology Parkway, Austin, TX 78759
+Primary Contact:   Peter Gibbons (accounting@initech.example.com)
+Approved Terms:    Net 45 Days
+Banking Wire:      Austin Commercial Bank, Routing: 111900234, Acct: 789920144
+Category:          IT Infrastructure & Cloud Services
+Preferred Currency: USD
+Status:            ACTIVE_VERIFIED
+================================================================================

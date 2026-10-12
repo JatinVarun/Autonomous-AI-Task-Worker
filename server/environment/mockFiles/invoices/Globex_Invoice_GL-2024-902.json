@@ -1,0 +1,25 @@
+{
+  "invoiceNumber": "GL-2024-902",
+  "vendor": "Globex Logistics Corp",
+  "vendorTaxId": "US-8837194",
+  "invoiceDate": "2024-10-20",
+  "dueDate": "2024-11-20",
+  "currency": "USD",
+  "totalAmount": 6850.50,
+  "paymentTerms": "Net 30",
+  "items": [
+    {
+      "description": "Freight Forwarding - Pacific Route",
+      "quantity": 3,
+      "unitPrice": 1800.00,
+      "total": 5400.00
+    },
+    {
+      "description": "Customs Expedited Clearance Fee",
+      "quantity": 1,
+      "unitPrice": 1450.50,
+      "total": 1450.50
+    }
+  ],
+  "remittanceInstructions": "Wire transfer to Globex Trust Bank, Account #449210-99"
+}
