@@ -83,20 +83,17 @@ The core worker engine implements the **ReAct (Reasoning + Acting)** pattern, en
 
 ---
 
-## 2. Pluggable Tool Registry (`server/tools/`)
+## 2. Pluggable Tool Registry (`aura_worker/tools/`)
 
 All tools adhere to a standardized interface:
-```typescript
-interface ToolDefinition {
-  name: string;
-  description: string;
-  parameters: {
-    type: "object";
-    required?: string[];
-    properties: Record<string, any>;
-  };
-  execute: (params: any, context: ExecutionContext) => Promise<ToolResult>;
-}
+```python
+class Tool:
+    name: str
+    description: str
+    parameters: dict
+
+    def execute(self, params: dict, context: ExecutionContext) -> dict:
+        ...
 ```
 
 ### Integrated Tool Categories
@@ -118,7 +115,7 @@ interface ToolDefinition {
 
 ---
 
-## 3. Independent Verification Engine (`server/agent/verifier.js`)
+## 3. Independent Verification Engine (`aura_worker/verifier.py`)
 
 Most autonomous agents fail because of **hallucinated completion**: an LLM assumes that because it called a tool, the real-world side effect succeeded.
 
@@ -136,7 +133,7 @@ The `OutcomeVerifier` operates as an independent auditor:
 
 ---
 
-## 4. Dual-Engine Cognitive Reasoner (`server/agent/llm/`)
+## 4. Dual-Engine Cognitive Reasoner (`aura_worker/llm/`)
 
 To support instant zero-setup evaluation while retaining support for modern commercial foundation models, the system includes a pluggable provider abstraction:
 

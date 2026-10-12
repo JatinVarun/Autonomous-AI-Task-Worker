@@ -1,175 +1,164 @@
-# AURA Worker: Autonomous AI Task Worker
+# ⚡ AURA Worker — Autonomous Enterprise Task Agent (Python + Streamlit)
 
-An autonomous AI task worker prototype that receives natural language instructions and autonomously completes real-world enterprise computer workflows using dynamic goal decomposition, perception-action loops (ReAct), multi-tool execution, self-correction, human-in-the-loop safety gating, and independent outcome verification.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B.svg)](https://streamlit.io/)
+[![Architecture](https://img.shields.io/badge/Architecture-ReAct%20Loop-7928CA.svg)](#architecture)
+[![Verification](https://img.shields.io/badge/Proof-SHA--256%20Cryptographic-00C7B7.svg)](#independent-verification)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](#license)
 
----
+**AURA Worker** is a 100% native Python autonomous AI agent designed to execute complex enterprise workflows from natural language directives. It combines **dynamic goal decomposition**, a **ReAct loop (Reasoning + Acting)**, a **pluggable tool execution suite**, **self-correction mechanisms**, **Human-in-the-Loop (HITL) safety gating**, and **independent cryptographic outcome verification**.
 
-## 🌟 Key Capabilities & Evaluation Highlights
-
-| Capability | Implementation in AURA Worker |
-| :--- | :--- |
-| **Autonomy** | Decomposes high-level directives into multi-step milestone plans without requiring step-by-step human guidance. Implements a ReAct cognitive loop (`Thought` ➔ `Action` ➔ `Observation` ➔ `Reflection`). |
-| **Real Execution** | Performs actual operations against simulated enterprise environments: reads disk documents (plain text, JSON invoices, contracts), queries internal ERP APIs, registers accounting records, and inspects databases. |
-| **Reliability & Self-Correction** | Diagnoses tool failures (e.g., file not found, ERP duplicate conflicts, field formatting), updates memory scratchpad, and tries alternative paths. |
-| **Independent Verification** | Dedicated `OutcomeVerifier` checks ground truth in target systems before declaring task completion, ensuring zero hallucinated completions and issuing cryptographic evidence tokens. |
-| **Human-in-the-Loop (HITL)** | Built-in policy engine intercepts high-risk operations (transactions $\ge \$10,000$, direct refunds, ambiguous inputs), halts execution, and prompts the user via an interactive modal before continuing. |
-| **Generalization** | Decoupled `ToolRegistry` and cognitive reasoner handle diverse scenarios: accounts payable processing, JSON invoices, vendor master updates, and customer refund disputes. |
-| **Zero-Setup Testing** | Runs out of the box with zero external API keys required via the built-in Cognitive ReAct engine, with seamless drop-in support for Gemini 2.0 and OpenAI GPT-4o. |
+Zero external API keys are required to evaluate — it comes with a built-in cognitive ReAct reasoning engine out-of-the-box.
 
 ---
 
-## 🚀 Quickstart & Setup Instructions
+## 📸 Key Features
+
+- **🧠 Cognitive ReAct Execution**: Autonomous Reasoning, Tool Invocation, Observation Parsing, and dynamic Milestone Planning.
+- **🛡️ Human-in-the-Loop (HITL) Policy Engine**: Automatically gates high-risk operations (e.g. Invoices $\ge \$10,000$ or customer refund disbursements) for manual operator authorization before side-effects occur.
+- **🔒 Independent Cryptographic Verification**: Verifies real-world database mutations directly against ERP records and issues SHA-256 signed evidence digests to eliminate hallucinated completions.
+- **🏢 Enterprise Simulation Suite**: Embedded In-memory ERP (Accounts Payable, Vendor Registry, Audit Trails), Commerce Order Database, and mock corporate file repositories.
+- **✨ Streamlit Control Center**: Glassmorphism dark-mode UI with live ReAct event streams, interactive ERP explorer, file inspector, and execution telemetry.
+
+---
+
+## 🚀 Quickstart
 
 ### Prerequisites
-- **Node.js**: v18.0.0 or later (Tested on Node.js v24)
-- **Git**
+- **Python 3.10 or higher**
+- Git
 
-### 1. Installation
-Clone the repository and install dependencies:
+### 1. Clone & Set Up Environment
+
 ```bash
-git clone <repository-url>
-cd assignment
-npm install
+git clone https://github.com/JatinVarun/Autonomous-AI-Task-Worker.git
+cd Autonomous-AI-Task-Worker
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+# macOS / Linux:
+# source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-### 2. Run Automated Verification Test Suite
-Run the comprehensive test suite verifying tool execution, error handling, human approval flows, and end-to-end task completion:
-```bash
-npm test
-```
-*Expected result: 11 passing tests in <300ms.*
+### 2. Run Test Suite
 
-### 3. Launch the Live Prototype
-Start the local server and web control center:
+Run the unit and integration test suite:
+
 ```bash
-npm start
+pytest -v
 ```
+
+All 11 tests validate the ReAct loop, tool registry, HITL pause/resume flow, ERP duplicate detection, and ground-truth verification assertions:
+```text
+tests/test_agent.py::test_acme_invoice_end_to_end PASSED
+tests/test_agent.py::test_globex_json_invoice PASSED
+tests/test_agent.py::test_hitl_pauses_then_resumes_on_approval PASSED
+tests/test_agent.py::test_initech_vendor_update PASSED
+tests/test_agent.py::test_refund_ticket PASSED
+tests/test_tools.py::test_list_invoice_files PASSED
+tests/test_tools.py::test_read_invoice_file PASSED
+tests/test_tools.py::test_erp_create_invoice_and_duplicate PASSED
+tests/test_tools.py::test_tool_registry_schemas PASSED
+tests/test_verifier.py::test_positive_invoice_verification PASSED
+tests/test_verifier.py::test_missing_invoice_fails_verification PASSED
+```
+
+### 3. Launch the Streamlit Control Center
+
+```bash
+streamlit run app.py
+```
+
 Open your browser to:
-**[http://localhost:3000](http://localhost:3000)**
+👉 **[http://localhost:8501](http://localhost:8501)**
 
 ---
 
-## 🖥️ Live Dashboard & Interactive Demo
+## 🎯 Evaluation Presets
 
-The web dashboard is an interactive command center built with a modern dark glassmorphism design:
+The dashboard provides 4 instant enterprise evaluation presets:
 
-1. **Task Directive & Evaluation Presets**:
-   - **Preset 1 (Benchmark Task)**: *"Find the latest invoice from Acme Corp, extract the amount and due date, enter it into our internal system, and tell me once it is done."*
-   - **Preset 2 (JSON Invoices)**: *"Find the invoice from Globex Logistics Corp, parse its JSON amount and due date, register it in the ERP system, and verify."*
-   - **Preset 3 (Vendor Onboarding)**: *"Locate the vendor agreement for Initech Technologies, extract approved tax ID and payment terms, update the ERP vendor master directory, and verify."*
-   - **Preset 4 (Customer Refunds)**: *"Process refund request in email ticket #REF-842, check order status in database, submit refund transaction, and verify completion."*
-   - **Custom Directives**: Type any natural language prompt into the input area.
-
-2. **Real-Time Cognitive Stream**:
-   - Live streaming of the agent's internal monologue (**Thought**), tool calls (**Action**), raw returned data (**Observation**), and dynamic memory state.
-
-3. **Human-in-the-Loop Interactive Modal**:
-   - When the worker processes the Acme invoice ($14,250.00), the safety policy detects that it exceeds the $10,000 threshold and displays an authorization dialog. Click **"✅ Approve & Authorize"** to watch the worker resume.
-
-4. **Live System of Record (Simulated ERP)**:
-   - Switch to the **Internal ERP Portal** tab to watch records appear in real-time in the Accounts Payable table with status `VERIFIED_ACCURATE`.
-
-5. **Independent Verification Proof Inspector**:
-   - Inspect the cryptographic verification receipt containing the SHA-256 proof signature, target system confirmation ID, and field assertion results.
+| Preset | Objective | Safety Policy / Behavior |
+| :--- | :--- | :--- |
+| **1. Acme Invoice Entry** | Finds latest Acme invoice (`INV-2024-889`, $14,250.00), parses due date & amount, registers in ERP, and verifies. | 🛑 **Gated by HITL** (Amount $\ge \$10,000$). Pauses for human authorization unless bypassed. |
+| **2. Globex JSON Invoice** | Discovers Globex Logistics JSON file (`GL-2024-902`), parses unstructured/structured JSON payload, and updates ERP. | ⚡ Autonomous end-to-end execution with duplicate-check protection. |
+| **3. Vendor Agreement** | Locates Initech Technologies agreement, extracts approved Tax ID & payment terms (Net 45), updates Vendor Master. | ⚡ Cross-directory document analysis & vendor master persistence. |
+| **4. Refund Ticket #842** | Processes support ticket for Order `#ORD-99381`, queries commerce DB, executes refund disbursement, and audits. | 🛑 **Gated by HITL** (Financial refund disbursement requires authorization). |
 
 ---
 
-## 🏛️ System Architecture
+## 🏗️ System Architecture
 
-```mermaid
-graph TD
-    User([User Directive]) --> Controller[Autonomous Worker Engine]
-    Controller --> Memory[Working Memory & Scratchpad]
-    Controller --> LLM[Cognitive Reasoner / LLM Provider]
-    
-    LLM --> Plan[Dynamic Milestone Plan]
-    LLM --> ReAct[ReAct Loop: Thought + Action Selection]
-    
-    ReAct --> Policy{HITL Safety Policy}
-    Policy -- Risk >= Threshold --> HITL[Human Approval Modal]
-    HITL -- Approved --> Tools
-    Policy -- Safe / Auto-Approve --> Tools
-    
-    subgraph Tool Sandbox [Tool Execution Sandbox]
-        Tools[Tool Registry Dispatcher]
-        Tools --> FileTool[Filesystem & Document Parser]
-        Tools --> ErpTool[Enterprise ERP Portal API]
-        Tools --> DbTool[Commerce Database]
-        Tools --> BrowserTool[Web Browser Simulator]
-    end
-
-    Tool Sandbox --> Obs[Observation Capture]
-    Obs --> SelfCorrect{Error Detected?}
-    SelfCorrect -- Yes --> LLM
-    SelfCorrect -- No --> Memory
-
-    Memory --> Verifier[Independent Outcome Verifier]
-    Verifier --> ERP_DB[(Ground Truth System of Record)]
-    Verifier --> Proof[SHA-256 Verifiable Evidence Digest]
-    Proof --> Summary[Executive Summary & Audit Report]
+```text
+                  ┌─────────────────────────────────────────┐
+                  │    Streamlit Web Dashboard (app.py)     │
+                  └───────────────────▲─────────────────────┘
+                                      │ Event Stream / User Input
+                  ┌───────────────────▼─────────────────────┐
+                  │       AutonomousWorker (worker.py)      │
+                  │   - State Machine: RUNNING/PAUSED/DONE   │
+                  └─────────┬─────────────────────┬─────────┘
+                            │                     │
+            ┌───────────────▼───────┐     ┌───────▼───────────────┐
+            │   Cognitive Reasoner  │     │   HITL Policy Engine  │
+            │  (llm/rule_engine.py) │     │       (hitl.py)       │
+            └───────────────┬───────┘     └───────┬───────────────┘
+                            │                     │
+            ┌───────────────▼─────────────────────▼─────────┐
+            │            Tool Registry (tools/)             │
+            │  - file_tools        - erp_tools              │
+            │  - db_tools          - browser_tools          │
+            └───────────────────────┬───────────────────────┘
+                                    │ Record Mutations
+            ┌───────────────────────▼───────────────────────┐
+            │         Outcome Verifier (verifier.py)        │
+            │   Independent Ground-Truth Query & SHA-256    │
+            └───────────────────────────────────────────────┘
 ```
 
-### Architectural Modules
-- **`server/agent/AutonomousWorker.js`**: Orchestrates the autonomous perception-action loop, safety gating, event streaming, and verification lifecycle.
-- **`server/agent/memory.js`**: Manages working memory, plan milestone tracking, entity scratchpad variables, and execution history snapshots.
-- **`server/agent/humanInTheLoop.js`**: Policy engine that intercepts high-impact actions, raises approval requests, and manages asynchronous resolution.
-- **`server/agent/verifier.js`**: Independent verification engine that directly queries system ground truth to ensure real-world changes persisted accurately.
-- **`server/agent/llm/ruleEngine.js`**: Built-in deterministic cognitive reasoner allowing instant zero-dependency testing of autonomous behaviors.
-- **`server/agent/llm/provider.js`**: Pluggable LLM interface supporting Gemini 2.0, OpenAI GPT-4o, and the built-in Cognitive Reasoner.
-- **`server/tools/index.js`**: Tool registry enforcing parameter validation, telemetry timing, error boundaries, and permission sandboxing.
-- **`server/environment/erpService.js`**: Live simulated ERP REST service managing Accounts Payable, Vendor Directory, and Audit Logs.
+### Module Breakdown
+
+| Directory / File | Description |
+| :--- | :--- |
+| **`app.py`** | Main Streamlit interactive control center and real-time dashboard. |
+| **`aura_worker/worker.py`** | ReAct orchestration engine, event dispatcher, pause/resume lifecycle. |
+| **`aura_worker/hitl.py`** | Enterprise risk policy scoring (risk levels, thresholds, reason codes). |
+| **`aura_worker/verifier.py`** | Independent verifier comparing real database state against target goals. |
+| **`aura_worker/memory.py`** | Working scratchpad and step execution history storage. |
+| **`aura_worker/llm/`** | Built-in cognitive engine with multi-step reasoning and pluggable LLM interfaces. |
+| **`aura_worker/tools/`** | Standardized tool registry (`list_files`, `read_file`, `erp_create_invoice`, etc.). |
+| **`aura_worker/environment/`** | In-memory ERP database, commerce DB, and mock company storage directory. |
+| **`tests/`** | Full pytest test suite covering unit, integration, and edge scenarios. |
 
 ---
 
-## ⚖️ Important Technical & Design Decisions
+## 🔒 Independent Verification & Digital Proofs
 
-1. **Independent Verification vs. Self-Reported Completion**:
-   - *Problem*: Traditional LLM agents suffer from "hallucinated completion"—they assume that generating an API call means the job succeeded.
-   - *Decision*: We built an isolated `OutcomeVerifier` that runs *after* tool execution. It queries the target system directly, matches fields against source values, and issues a cryptographic proof token. If verification fails, the task is marked as unverified.
+A common flaw in autonomous AI workers is **hallucinated completion** (assuming that because a function was called, the real-world side-effect succeeded). 
 
-2. **Dual-Mode Cognitive Reasoner (Built-in + Live LLM)**:
-   - *Problem*: Reviewers evaluating take-home assignments frequently face API key configuration issues or quota exhaustion.
-   - *Decision*: We implemented an intelligent built-in Cognitive ReAct Engine that parses intent, manages dynamic scratchpads, handles retries, and simulates realistic ReAct execution out of the box with zero keys, while also providing full integration with Gemini 2.0 and OpenAI via the settings panel.
-
-3. **Human-in-the-Loop Safety Policy**:
-   - *Problem*: Full autonomy in business operations without guardrails can trigger catastrophic errors (e.g. paying incorrect invoices or executing unauthorized refunds).
-   - *Decision*: High-risk actions (transactions $\ge \$10,000$ or refund transactions) are automatically paused by the policy engine. The system exposes an interactive approval modal allowing human oversight while maintaining end-to-end task momentum.
-
-4. **Bi-directional WebSocket Telemetry**:
-   - *Problem*: Polling REST APIs creates latency and misses fine-grained cognitive steps.
-   - *Decision*: We implemented a WebSocket streaming bus that delivers real-time cognitive thoughts, tool parameters, observations, and system state updates as they occur.
+AURA Worker solves this with an **Independent Verifier**:
+1. **Direct Ground-Truth Inspection**: Performs a clean, independent query against the live ERP database.
+2. **Deterministic Assertions**: Checks invoice number, vendor identity, exact floating-point amount matching ($\Delta < \$0.01$), and ISO dates.
+3. **Cryptographic Proof Digest**: Generates a tamper-evident digital signature:
+   $$\text{Digest} = \text{SHA256}(\text{VerificationId} \parallel \text{TargetID} \parallel \text{Amount} \parallel \text{Timestamp})$$
+4. **Audit Status**: Flags the ERP entry with `VERIFIED_ACCURATE` once mathematically confirmed.
 
 ---
 
-## 🔍 Assumptions Made
-1. **Target Environment**: The enterprise environment consists of document repositories (invoices, contracts, emails) and internal REST-based systems (ERP, commerce database).
-2. **Identification of 'Latest' Document**: Invoices for a vendor are differentiated by sequence numbering (e.g. `INV-2024-889` vs `INV-2024-512`) or document dates. The agent prioritizes higher invoice sequence numbers or newer dates over filesystem timestamp artifacts.
-3. **Approval Threshold**: Enterprise policy requires explicit human approval for single disbursements or bills exceeding $10,000.
+## 🛠️ Configuration & Customization
+
+### Switching Models
+By default, AURA Worker uses the built-in Cognitive ReAct Engine (`BUILTIN_COGNITIVE_ENGINE`), requiring **no API keys**. You can also plug in external LLM providers (e.g., Gemini, OpenAI) via [`aura_worker/llm/provider.py`](file:///c:/Users/jatin/OneDrive/Desktop/assignment/aura_worker/llm/provider.py).
 
 ---
 
-## ⚠️ Known Limitations
-- **Headless Browser in Sandboxed Cloud VMs**: In restricted environments without display servers or where external CDN downloads for browser binaries are blocked, web navigation tools fall back to simulated HTTP response extraction.
-- **Single Active Worker Concurrency**: The prototype currently runs one active autonomous worker thread at a time per server instance. Multiple concurrent workers would require distributed worker queues (e.g. Redis + BullMQ).
-- **PDF Binary OCR**: The prototype parses `.txt`, `.json`, and structured text bills. Real-world deployments would integrate an OCR pipeline (e.g. Tesseract or vision-based document AI models) for scanned raster images.
+## 📄 License
 
----
-
-## 🔮 What We Would Build Next With Additional Time
-1. **Vision-based Multi-modal Document Parsing**: Integrate vision models (Gemini 2.0 Flash Vision) to extract unstructured layout tables from scanned multi-page PDF invoices.
-2. **Dynamic Tool Synthesis**: Allow the worker to dynamically generate and execute custom JavaScript/Python data transformation scripts when encountering unknown file schemas.
-3. **Rollback & Transactional Undo Engine**: Introduce state rollback mechanisms so that if verification fails at step 5, earlier mutations (such as draft invoice creation) can be cleanly reverted.
-4. **Persistent Vector Memory**: Integrate vector embeddings (e.g., SQLite-vec or Chroma) to allow the agent to recall prior vendor payment terms and historical resolution decisions across sessions.
-
----
-
-## 📦 Models, Services & Libraries Used
-- **Runtime**: Node.js v24 (ES Modules)
-- **Web Framework**: Express v4.21.2
-- **Real-Time Gateway**: `ws` (v8.18.0)
-- **Environment Management**: `dotenv` (v16.4.7)
-- **Testing**: Node.js Native Test Runner (`node:test`, `node:assert/strict`)
-- **Supported AI Models**:
-  - Built-in Cognitive ReAct Engine (Zero setup)
-  - Google Gemini 2.0 Flash (`gemini-2.0-flash`)
-  - OpenAI GPT-4o (`gpt-4o-mini`)
+This project is licensed under the MIT License.
