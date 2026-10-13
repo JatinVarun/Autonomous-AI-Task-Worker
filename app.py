@@ -48,230 +48,344 @@ init_state()
 
 is_dark = st.session_state.theme_mode == "dark"
 
-# Dynamic CSS Theme Tokens
+# Comprehensive theme definitions ensuring high contrast and clean professional styling
 if is_dark:
     theme_css = """
     :root {
-      --bg-primary: #0a0d14;
-      --bg-surface: #121722;
-      --bg-surface-elevated: #182030;
-      --border-color: #232c40;
-      --border-subtle: #1c2436;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --brand-primary: #3b82f6;
-      --brand-glow: rgba(59, 130, 246, 0.15);
-      --code-bg: #0d111a;
-      --card-thought-bg: rgba(59, 130, 246, 0.08);
-      --card-thought-border: #3b82f6;
-      --card-action-bg: rgba(245, 158, 11, 0.08);
-      --card-action-border: #f59e0b;
-      --card-obs-bg: rgba(16, 185, 129, 0.08);
-      --card-obs-border: #10b981;
-      --card-verif-bg: rgba(139, 92, 246, 0.08);
-      --card-verif-border: #8b5cf6;
-      --table-header-bg: #161e2e;
-      --table-row-hover: #192234;
-      --badge-idle-bg: #1e2638;
-      --badge-idle-text: #94a3b8;
-      --badge-idle-border: #334155;
+      --bg-page: #0b0f17;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1e293b;
+      --bg-surface-subtle: #0f172a;
+      --border-main: #1f2937;
+      --border-strong: #374151;
+      --text-heading: #f9fafb;
+      --text-body: #e5e7eb;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --primary-glow: rgba(59, 130, 246, 0.15);
+      --card-thought: rgba(59, 130, 246, 0.08);
+      --card-action: rgba(245, 158, 11, 0.08);
+      --card-obs: rgba(16, 185, 129, 0.08);
+      --card-verif: rgba(139, 92, 246, 0.08);
+      --input-bg: #111827;
+      --table-header: #1f2937;
+      --table-row-alt: #162032;
     }
     .stApp {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
+      background-color: var(--bg-page) !important;
+      color: var(--text-body) !important;
     }
     """
 else:
     theme_css = """
     :root {
-      --bg-primary: #f8fafc;
+      --bg-page: #f8fafc;
       --bg-surface: #ffffff;
       --bg-surface-elevated: #ffffff;
-      --border-color: #e2e8f0;
-      --border-subtle: #edf2f7;
-      --text-main: #0f172a;
+      --bg-surface-subtle: #f1f5f9;
+      --border-main: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-heading: #0f172a;
+      --text-body: #1e293b;
       --text-muted: #475569;
       --text-dim: #64748b;
-      --brand-primary: #2563eb;
-      --brand-glow: rgba(37, 99, 235, 0.10);
-      --code-bg: #f1f5f9;
-      --code-text: #0f172a;
-      --card-thought-bg: #eff6ff;
-      --card-thought-border: #3b82f6;
-      --card-action-bg: #fffbeb;
-      --card-action-border: #d97706;
-      --card-obs-bg: #f0fdf4;
-      --card-obs-border: #059669;
-      --card-verif-bg: #faf5ff;
-      --card-verif-border: #7c3aed;
-      --table-header-bg: #f1f5f9;
-      --table-row-hover: #f8fafc;
-      --badge-idle-bg: #f1f5f9;
-      --badge-idle-text: #475569;
-      --badge-idle-border: #cbd5e1;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-glow: rgba(37, 99, 235, 0.08);
+      --card-thought: #eff6ff;
+      --card-action: #fffbeb;
+      --card-obs: #f0fdf4;
+      --card-verif: #faf5ff;
+      --input-bg: #ffffff;
+      --table-header: #f1f5f9;
+      --table-row-alt: #f8fafc;
     }
     .stApp {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
+      background-color: var(--bg-page) !important;
+      color: var(--text-body) !important;
     }
     header, footer {
-      background-color: var(--bg-primary) !important;
+      background-color: var(--bg-page) !important;
     }
     """
 
 st.markdown(
     f"""
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
       {theme_css}
 
+      /* Global resets & typography */
       html, body, [class*="css"], .stMarkdown, .stText {{
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
       }}
       code, pre, .mono {{
         font-family: 'JetBrains Mono', Consolas, monospace !important;
       }}
 
+      /* Fix top header cutoff: Streamlit cloud top bar requires generous padding */
       .block-container {{
-        padding-top: 1.25rem !important;
-        padding-bottom: 2.5rem !important;
-        max-width: 1600px !important;
+        padding-top: 5rem !important;
+        padding-bottom: 3rem !important;
+        max-width: 1560px !important;
+      }}
+      header[data-testid="stHeader"] {{
+        background: transparent !important;
+        z-index: 99 !important;
       }}
 
-      /* Hero Header */
-      .aura-header {{
+      /* Universal text color enforcement */
+      h1, h2, h3, h4, h5, h6, strong {{
+        color: var(--text-heading) !important;
+      }}
+      p, span, div, label {{
+        color: var(--text-body);
+      }}
+      .stCaption, small {{
+        color: var(--text-muted) !important;
+      }}
+
+      /* Unified Clean Top Bar */
+      .app-navbar {{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 20px;
-        padding: 20px 24px;
-        background-color: var(--bg-surface);
-        border: 1px solid var(--border-color);
+        flex-wrap: wrap;
+        gap: 16px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-main);
         border-radius: 12px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        margin-bottom: 20px;
+        padding: 16px 22px;
+        margin-bottom: 22px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       }}
-      .aura-tagline {{
-        font-size: 11px;
-        font-weight: 700;
-        color: var(--brand-primary);
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        margin-bottom: 4px;
-      }}
-      .aura-title {{
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        color: var(--text-main);
+      .app-brand {{
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 12px;
       }}
-      .aura-title-badge {{
-        font-size: 11px;
+      .app-logo {{
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 800;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      }}
+      .app-title-box {{
+        display: flex;
+        flex-direction: column;
+      }}
+      .app-title {{
+        font-size: 19px;
+        font-weight: 800;
+        color: var(--text-heading) !important;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }}
+      .app-subtitle {{
+        font-size: 11.5px;
         font-weight: 600;
-        padding: 2px 8px;
-        border-radius: 6px;
-        background: var(--brand-glow);
-        color: var(--brand-primary);
-        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        letter-spacing: 0.04em;
+      }}
+      .app-status-box {{
+        display: flex;
+        align-items: center;
+        gap: 12px;
       }}
 
-      /* Badges */
-      .badge {{
+      /* Status Pill */
+      .status-pill {{
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 5px 12px;
-        border-radius: 999px;
-        font-size: 11px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 11.5px;
         font-weight: 700;
         letter-spacing: 0.04em;
         text-transform: uppercase;
       }}
-      .badge-ok {{
+      .status-pill-ok {{
         background: rgba(16, 185, 129, 0.12);
-        color: #10b981;
+        color: #10b981 !important;
         border: 1px solid rgba(16, 185, 129, 0.3);
       }}
-      .badge-run {{
+      .status-pill-run {{
         background: rgba(245, 158, 11, 0.12);
-        color: #f59e0b;
+        color: #f59e0b !important;
         border: 1px solid rgba(245, 158, 11, 0.3);
       }}
-      .badge-wait {{
+      .status-pill-wait {{
         background: rgba(239, 68, 68, 0.12);
-        color: #ef4444;
+        color: #ef4444 !important;
         border: 1px solid rgba(239, 68, 68, 0.3);
         animation: pulse-ring 2s infinite;
       }}
-      .badge-idle {{
-        background: var(--badge-idle-bg);
-        color: var(--badge-idle-text);
-        border: 1px solid var(--badge-idle-border);
+      .status-pill-idle {{
+        background: var(--bg-surface-elevated);
+        color: var(--text-muted) !important;
+        border: 1px solid var(--border-main);
       }}
 
       @keyframes pulse-ring {{
         0%, 100% {{ opacity: 1; }}
-        50% {{ opacity: 0.6; }}
+        50% {{ opacity: 0.65; }}
       }}
 
-      /* Cards & Execution Stream */
+      /* Cards for stream events */
       .stream-card {{
-        padding: 12px 16px;
+        padding: 14px 18px;
         margin: 10px 0;
         border-radius: 8px;
         font-size: 13.5px;
         line-height: 1.5;
         border-left-width: 4px;
         border-left-style: solid;
-        background-color: var(--bg-surface);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        border-top: 1px solid var(--border-main);
+        border-right: 1px solid var(--border-main);
+        border-bottom: 1px solid var(--border-main);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
       }}
       .thought {{
-        border-left-color: var(--card-thought-border);
-        background-color: var(--card-thought-bg);
-        color: var(--text-main);
+        border-left-color: #3b82f6;
+        background-color: var(--card-thought);
       }}
       .action {{
-        border-left-color: var(--card-action-border);
-        background-color: var(--card-action-bg);
-        color: var(--text-main);
+        border-left-color: #f59e0b;
+        background-color: var(--card-action);
       }}
       .obs {{
-        border-left-color: var(--card-obs-border);
-        background-color: var(--card-obs-bg);
-        color: var(--text-main);
+        border-left-color: #10b981;
+        background-color: var(--card-obs);
       }}
       .verif {{
-        border-left-color: var(--card-verif-border);
-        background-color: var(--card-verif-bg);
-        color: var(--text-main);
+        border-left-color: #8b5cf6;
+        background-color: var(--card-verif);
       }}
 
-      /* Code & Pre Blocks */
+      /* Streamlit Input Overrides */
+      .stTextInput input, .stTextArea textarea, .stSelectbox select {{
+        background-color: var(--input-bg) !important;
+        color: var(--text-heading) !important;
+        border: 1px solid var(--border-strong) !important;
+        border-radius: 8px !important;
+        font-size: 14px !important;
+      }}
+      .stTextInput input:focus, .stTextArea textarea:focus {{
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 2px var(--primary-glow) !important;
+      }}
+
+      /* Code / Pre Blocks */
       pre {{
-        background: var(--code-bg) !important;
-        border: 1px solid var(--border-color) !important;
+        background: var(--bg-surface-subtle) !important;
+        border: 1px solid var(--border-main) !important;
         border-radius: 6px !important;
         padding: 10px 14px !important;
-        color: var(--text-main) !important;
+        color: var(--text-body) !important;
         font-size: 12px !important;
-        overflow-x: auto !important;
       }}
       code {{
-        color: var(--brand-primary) !important;
+        color: var(--primary) !important;
       }}
 
-      /* Human-in-the-Loop Box */
-      .hitl-container {{
-        border: 1px solid #ef4444;
-        background: rgba(239, 68, 68, 0.06);
-        padding: 16px 20px;
+      /* Metrics styling */
+      div[data-testid="stMetric"] {{
+        background: var(--bg-surface);
+        border: 1px solid var(--border-main);
         border-radius: 10px;
+        padding: 14px 16px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      }}
+      div[data-testid="stMetricValue"] {{
+        font-size: 24px !important;
+        font-weight: 800 !important;
+        color: var(--text-heading) !important;
+      }}
+      div[data-testid="stMetricLabel"] {{
+        font-size: 11.5px !important;
+        font-weight: 700 !important;
+        color: var(--text-muted) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+      }}
+
+      /* Tabs styling */
+      .stTabs [data-baseweb="tab-list"] {{
+        gap: 8px;
+        border-bottom: 1px solid var(--border-main) !important;
+      }}
+      .stTabs [data-baseweb="tab"] {{
+        font-weight: 600;
+        font-size: 13.5px;
+        color: var(--text-muted) !important;
+        padding: 10px 16px;
+        border-radius: 6px 6px 0 0;
+      }}
+      .stTabs [aria-selected="true"] {{
+        color: var(--primary) !important;
+        border-bottom: 2px solid var(--primary) !important;
+        background: var(--primary-glow);
+      }}
+
+      /* Tables */
+      table {{
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0 16px 0;
+        font-size: 13px;
+        border: 1px solid var(--border-main);
+        border-radius: 8px;
+        overflow: hidden;
+      }}
+      th {{
+        background-color: var(--table-header);
+        color: var(--text-muted) !important;
+        font-weight: 700;
+        text-align: left;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border-main);
+        font-size: 11.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }}
+      td {{
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border-main);
+        color: var(--text-body) !important;
+      }}
+      tr:hover {{
+        background-color: var(--bg-surface-elevated);
+      }}
+
+      /* Button refinement */
+      .stButton > button {{
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        font-size: 13px !important;
+        border: 1px solid var(--border-strong) !important;
+        transition: all 0.15s ease-in-out !important;
+      }}
+      .stButton > button:hover {{
+        border-color: var(--primary) !important;
+      }}
+
+      /* Human-in-the-loop box */
+      .hitl-alert {{
+        border: 1px solid #ef4444;
+        background: rgba(239, 68, 68, 0.08);
+        border-radius: 10px;
+        padding: 16px 20px;
         margin: 14px 0;
       }}
       .hitl-title {{
@@ -279,77 +393,10 @@ st.markdown(
         font-weight: 700;
         color: #ef4444;
         margin-bottom: 6px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
       }}
-      .hitl-body {{
-        color: var(--text-muted);
-        font-size: 13.5px;
-        margin-bottom: 10px;
-      }}
-
-      /* Tables */
-      table {{
-        width: 100%;
-        border-collapse: collapse;
-        margin: 10px 0 16px 0;
+      .hitl-desc {{
         font-size: 13px;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        overflow: hidden;
-      }}
-      th {{
-        background-color: var(--table-header-bg);
-        color: var(--text-muted);
-        font-weight: 600;
-        text-align: left;
-        padding: 10px 12px;
-        border-bottom: 1px solid var(--border-color);
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }}
-      td {{
-        padding: 9px 12px;
-        border-bottom: 1px solid var(--border-subtle);
-        color: var(--text-main);
-      }}
-      tr:hover {{
-        background-color: var(--table-row-hover);
-      }}
-
-      /* Streamlit Element Overrides for Seamless Polish */
-      .stTextInput input, .stTextArea textarea, .stSelectbox select {{
-        border-radius: 6px !important;
-        border: 1px solid var(--border-color) !important;
-        background-color: var(--bg-surface) !important;
-        color: var(--text-main) !important;
-      }}
-      div[data-testid="stMetricValue"] {{
-        font-size: 24px !important;
-        font-weight: 700 !important;
-        color: var(--text-main) !important;
-      }}
-      div[data-testid="stMetricLabel"] {{
-        font-size: 12px !important;
-        color: var(--text-dim) !important;
-        font-weight: 600 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.05em !important;
-      }}
-      .stTabs [data-baseweb="tab-list"] {{
-        gap: 12px;
-        border-bottom: 1px solid var(--border-color);
-      }}
-      .stTabs [data-baseweb="tab"] {{
-        font-weight: 600;
-        font-size: 13.5px;
-        color: var(--text-muted);
-        padding-bottom: 8px;
-      }}
-      .stTabs [aria-selected="true"] {{
-        color: var(--brand-primary) !important;
+        color: var(--text-body);
       }}
     </style>
     """,
@@ -359,18 +406,18 @@ st.markdown(
 
 def status_badge(status: str) -> str:
     s = (status or "").upper()
-    cls = "badge-idle"
+    cls = "status-pill-idle"
     dot = "●"
     if "WAIT" in s:
-        cls = "badge-wait"
+        cls = "status-pill-wait"
         dot = "⏸"
     elif "RUN" in s or "EXECUT" in s:
-        cls = "badge-run"
+        cls = "status-pill-run"
         dot = "⚡"
     elif "VERIFIED" in s or "COMPLETE" in s:
-        cls = "badge-ok"
+        cls = "status-pill-ok"
         dot = "✔"
-    return f'<span class="badge {cls}">{dot} {status}</span>'
+    return f'<span class="status-pill {cls}">{dot} {status}</span>'
 
 
 def run_worker(goal: str, auto_approve: bool):
@@ -393,13 +440,13 @@ def resume_worker(decision: str, comment: str = ""):
 
 def render_stream(events):
     if not events:
-        st.info("Agent is standing by. Choose a preset or specify a directive to begin execution.")
+        st.info("System is ready. Select an evaluation directive and launch the worker.")
         return
 
     for ev in events:
         et = ev.get("event")
         if et == "TASK_STARTED":
-            st.markdown(f"**⚡ Task Directive Initialized** — `{ev.get('goal')}`")
+            st.markdown(f"**⚡ Directive Initialized** — `{ev.get('goal')}`")
         elif et == "PLAN_GENERATED":
             st.caption(f"🧠 Milestones Planned: {ev.get('goal_understanding', 'Plan generated')}")
         elif et == "REASONING_STEP":
@@ -449,48 +496,48 @@ def render_markdown_table(rows):
     st.markdown("\n".join([header_line, sep_line] + data_lines))
 
 
-# Top Header Navigation & Theme Switcher
+# Top Header Navigation Bar
 status = st.session_state.status
 theme_icon = "☀️ Light Mode" if is_dark else "🌙 Dark Mode"
 
-top_left, top_right = st.columns([3.5, 1.5])
-with top_left:
-    st.markdown(
-        f"""
-        <div class="aura-header">
-          <div>
-            <div class="aura-tagline">Autonomous Enterprise Task Worker • Zero-Dependency ReAct Engine</div>
-            <div class="aura-title">
-              AURA WORKER <span class="aura-title-badge">v1.0 Production</span>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            {status_badge(status)}
-            <div style="color:var(--text-dim);font-size:11.5px;margin-top:6px;font-weight:600;">
-              ENGINE: {global_llm_provider.info()["label"]}
-            </div>
-          </div>
+st.markdown(
+    f"""
+    <div class="app-navbar">
+      <div class="app-brand">
+        <div class="app-logo">⚡</div>
+        <div class="app-title-box">
+          <div class="app-title">AURA Autonomous Task Worker</div>
+          <div class="app-subtitle">Autonomous Enterprise Agent • Zero-Dependency ReAct Engine</div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+      </div>
+      <div class="app-status-box">
+        {status_badge(status)}
+      </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-with top_right:
-    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
-    theme_btn_col1, theme_btn_col2 = st.columns([1, 1])
-    with theme_btn_col1:
-        if st.button(theme_icon, use_container_width=True):
-            st.session_state.theme_mode = "light" if is_dark else "dark"
-            st.rerun()
-    with theme_btn_col2:
-        if st.button("🔄 Reset App", use_container_width=True):
-            erp_instance.reset()
-            st.session_state.events = []
-            st.session_state.result = None
-            st.session_state.worker = None
-            st.session_state.status = "STANDBY / READY"
-            st.rerun()
+# Utility Row for Controls (Theme Toggle & System Reset)
+ctrl_col1, ctrl_col2, ctrl_col3 = st.columns([3, 1, 1])
+with ctrl_col1:
+    st.caption(f"Reasoning Core: **{global_llm_provider.info()['label']}** • Enterprise Edition v1.0")
+with ctrl_col2:
+    if st.button(theme_icon, use_container_width=True):
+        st.session_state.theme_mode = "light" if is_dark else "dark"
+        st.rerun()
+with ctrl_col3:
+    if st.button("🔄 Reset Environment", use_container_width=True):
+        erp_instance.reset()
+        st.session_state.events = []
+        st.session_state.result = None
+        st.session_state.worker = None
+        st.session_state.status = "STANDBY / READY"
+        st.rerun()
 
+st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+
+# Main Application Layout
 left, right = st.columns([1.15, 1], gap="large")
 
 with left:
@@ -547,13 +594,9 @@ with left:
         action = result.get("intended_action") or {}
         st.markdown(
             f"""
-            <div class="hitl-container">
-              <div class="hitl-title">
-                🛑 Human-in-the-Loop Operator Authorization Required
-              </div>
-              <div class="hitl-body">
-                {risk.get("reason") or approval.get("reason")}
-              </div>
+            <div class="hitl-alert">
+              <div class="hitl-title">🛑 Operator Authorization Required</div>
+              <div class="hitl-desc">{risk.get("reason") or approval.get("reason")}</div>
             </div>
             """,
             unsafe_allow_html=True,
