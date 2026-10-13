@@ -26,170 +26,10 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-st.markdown(
-    """
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
-      html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      }
-      code, pre, .mono {
-        font-family: 'JetBrains Mono', monospace !important;
-      }
-
-      .stApp {
-        background: radial-gradient(1400px 700px at 15% -10%, #1e2659 0%, #0c1126 40%, #060913 100%);
-        color: #e6edff;
-      }
-      .block-container {
-        padding-top: 1.2rem;
-        padding-bottom: 2.5rem;
-        max-width: 1680px;
-      }
-
-      /* Hero Banner */
-      .aura-hero {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        padding: 18px 24px;
-        border: 1px solid rgba(130, 160, 255, 0.22);
-        border-radius: 18px;
-        background: linear-gradient(135deg, rgba(30, 42, 92, 0.75) 0%, rgba(13, 18, 38, 0.85) 100%);
-        backdrop-filter: blur(12px);
-        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
-        margin-bottom: 18px;
-      }
-      .aura-tagline {
-        font-size: 11px;
-        font-weight: 700;
-        color: #8da4ff;
-        letter-spacing: .16em;
-        text-transform: uppercase;
-        margin-bottom: 4px;
-      }
-      .aura-title {
-        font-size: 26px;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        color: #ffffff;
-      }
-      .aura-gradient-text {
-        background: linear-gradient(90deg, #6894ff 0%, #a27bfa 50%, #4ae3b5 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      /* Status Badges */
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 14px;
-        border-radius: 999px;
-        font-size: 11.5px;
-        font-weight: 700;
-        letter-spacing: .06em;
-        text-transform: uppercase;
-      }
-      .badge-ok { background: rgba(30, 140, 90, 0.25); color: #4ae3b5; border: 1px solid rgba(74, 227, 181, 0.4); }
-      .badge-run { background: rgba(220, 140, 30, 0.25); color: #ffd166; border: 1px solid rgba(255, 209, 102, 0.4); }
-      .badge-wait { background: rgba(230, 50, 70, 0.25); color: #ff6b8b; border: 1px solid rgba(255, 107, 139, 0.4); animation: pulse 2s infinite; }
-      .badge-idle { background: rgba(70, 90, 160, 0.25); color: #a4b8ff; border: 1px solid rgba(164, 184, 255, 0.3); }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.65; }
-      }
-
-      /* Stream Cards */
-      .thought {
-        border-left: 3px solid #6b9cff;
-        padding: 10px 14px;
-        margin: 8px 0;
-        background: rgba(60, 95, 210, 0.12);
-        border-radius: 0 12px 12px 0;
-        font-size: 13.5px;
-        line-height: 1.5;
-      }
-      .action {
-        border-left: 3px solid #f6ad55;
-        padding: 10px 14px;
-        margin: 8px 0;
-        background: rgba(235, 150, 45, 0.12);
-        border-radius: 0 12px 12px 0;
-        font-size: 13px;
-      }
-      .obs {
-        border-left: 3px solid #48bb78;
-        padding: 10px 14px;
-        margin: 8px 0;
-        background: rgba(50, 180, 110, 0.10);
-        border-radius: 0 12px 12px 0;
-        font-size: 12.5px;
-      }
-      .verif {
-        border-left: 3px solid #b794f4;
-        padding: 10px 14px;
-        margin: 8px 0;
-        background: rgba(160, 110, 230, 0.14);
-        border-radius: 0 12px 12px 0;
-        font-size: 13px;
-      }
-
-      /* Pre blocks */
-      pre {
-        background: rgba(4, 7, 18, 0.7) !important;
-        border: 1px solid rgba(130, 160, 255, 0.15) !important;
-        border-radius: 8px !important;
-        padding: 8px 12px !important;
-        color: #cfe0ff !important;
-        font-size: 11.5px !important;
-      }
-
-      /* Approval Box */
-      .hitl-box {
-        border: 1px solid rgba(255, 100, 120, 0.6);
-        background: linear-gradient(135deg, rgba(255, 60, 90, 0.15) 0%, rgba(120, 20, 40, 0.25) 100%);
-        padding: 18px;
-        border-radius: 14px;
-        box-shadow: 0 8px 24px rgba(230, 40, 70, 0.2);
-        margin: 12px 0;
-      }
-
-      /* Tables */
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 10px 0;
-        font-size: 12.5px;
-      }
-      th {
-        background: rgba(30, 45, 100, 0.6);
-        color: #8da4ff;
-        font-weight: 700;
-        text-align: left;
-        padding: 8px 10px;
-        border-bottom: 2px solid rgba(130, 160, 255, 0.25);
-      }
-      td {
-        padding: 8px 10px;
-        border-bottom: 1px solid rgba(130, 160, 255, 0.1);
-        color: #d6e2ff;
-      }
-      tr:hover {
-        background: rgba(70, 100, 210, 0.08);
-      }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 
 def init_state():
     defaults = {
+        "theme_mode": "dark",
         "goal": PRESETS["Acme Invoice Entry"],
         "events": [],
         "result": None,
@@ -202,6 +42,319 @@ def init_state():
     for k, v in defaults.items():
         if k not in st.session_state:
             st.session_state[k] = v
+
+
+init_state()
+
+is_dark = st.session_state.theme_mode == "dark"
+
+# Dynamic CSS Theme Tokens
+if is_dark:
+    theme_css = """
+    :root {
+      --bg-primary: #0a0d14;
+      --bg-surface: #121722;
+      --bg-surface-elevated: #182030;
+      --border-color: #232c40;
+      --border-subtle: #1c2436;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --brand-primary: #3b82f6;
+      --brand-glow: rgba(59, 130, 246, 0.15);
+      --code-bg: #0d111a;
+      --card-thought-bg: rgba(59, 130, 246, 0.08);
+      --card-thought-border: #3b82f6;
+      --card-action-bg: rgba(245, 158, 11, 0.08);
+      --card-action-border: #f59e0b;
+      --card-obs-bg: rgba(16, 185, 129, 0.08);
+      --card-obs-border: #10b981;
+      --card-verif-bg: rgba(139, 92, 246, 0.08);
+      --card-verif-border: #8b5cf6;
+      --table-header-bg: #161e2e;
+      --table-row-hover: #192234;
+      --badge-idle-bg: #1e2638;
+      --badge-idle-text: #94a3b8;
+      --badge-idle-border: #334155;
+    }
+    .stApp {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+    }
+    """
+else:
+    theme_css = """
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #ffffff;
+      --border-color: #e2e8f0;
+      --border-subtle: #edf2f7;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --brand-primary: #2563eb;
+      --brand-glow: rgba(37, 99, 235, 0.10);
+      --code-bg: #f1f5f9;
+      --code-text: #0f172a;
+      --card-thought-bg: #eff6ff;
+      --card-thought-border: #3b82f6;
+      --card-action-bg: #fffbeb;
+      --card-action-border: #d97706;
+      --card-obs-bg: #f0fdf4;
+      --card-obs-border: #059669;
+      --card-verif-bg: #faf5ff;
+      --card-verif-border: #7c3aed;
+      --table-header-bg: #f1f5f9;
+      --table-row-hover: #f8fafc;
+      --badge-idle-bg: #f1f5f9;
+      --badge-idle-text: #475569;
+      --badge-idle-border: #cbd5e1;
+    }
+    .stApp {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+    }
+    header, footer {
+      background-color: var(--bg-primary) !important;
+    }
+    """
+
+st.markdown(
+    f"""
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+      {theme_css}
+
+      html, body, [class*="css"], .stMarkdown, .stText {{
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+      }}
+      code, pre, .mono {{
+        font-family: 'JetBrains Mono', Consolas, monospace !important;
+      }}
+
+      .block-container {{
+        padding-top: 1.25rem !important;
+        padding-bottom: 2.5rem !important;
+        max-width: 1600px !important;
+      }}
+
+      /* Hero Header */
+      .aura-header {{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 24px;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+      }}
+      .aura-tagline {{
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--brand-primary);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }}
+      .aura-title {{
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }}
+      .aura-title-badge {{
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 6px;
+        background: var(--brand-glow);
+        color: var(--brand-primary);
+        border: 1px solid var(--border-color);
+      }}
+
+      /* Badges */
+      .badge {{
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }}
+      .badge-ok {{
+        background: rgba(16, 185, 129, 0.12);
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }}
+      .badge-run {{
+        background: rgba(245, 158, 11, 0.12);
+        color: #f59e0b;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }}
+      .badge-wait {{
+        background: rgba(239, 68, 68, 0.12);
+        color: #ef4444;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        animation: pulse-ring 2s infinite;
+      }}
+      .badge-idle {{
+        background: var(--badge-idle-bg);
+        color: var(--badge-idle-text);
+        border: 1px solid var(--badge-idle-border);
+      }}
+
+      @keyframes pulse-ring {{
+        0%, 100% {{ opacity: 1; }}
+        50% {{ opacity: 0.6; }}
+      }}
+
+      /* Cards & Execution Stream */
+      .stream-card {{
+        padding: 12px 16px;
+        margin: 10px 0;
+        border-radius: 8px;
+        font-size: 13.5px;
+        line-height: 1.5;
+        border-left-width: 4px;
+        border-left-style: solid;
+        background-color: var(--bg-surface);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      }}
+      .thought {{
+        border-left-color: var(--card-thought-border);
+        background-color: var(--card-thought-bg);
+        color: var(--text-main);
+      }}
+      .action {{
+        border-left-color: var(--card-action-border);
+        background-color: var(--card-action-bg);
+        color: var(--text-main);
+      }}
+      .obs {{
+        border-left-color: var(--card-obs-border);
+        background-color: var(--card-obs-bg);
+        color: var(--text-main);
+      }}
+      .verif {{
+        border-left-color: var(--card-verif-border);
+        background-color: var(--card-verif-bg);
+        color: var(--text-main);
+      }}
+
+      /* Code & Pre Blocks */
+      pre {{
+        background: var(--code-bg) !important;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 6px !important;
+        padding: 10px 14px !important;
+        color: var(--text-main) !important;
+        font-size: 12px !important;
+        overflow-x: auto !important;
+      }}
+      code {{
+        color: var(--brand-primary) !important;
+      }}
+
+      /* Human-in-the-Loop Box */
+      .hitl-container {{
+        border: 1px solid #ef4444;
+        background: rgba(239, 68, 68, 0.06);
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin: 14px 0;
+      }}
+      .hitl-title {{
+        font-size: 15px;
+        font-weight: 700;
+        color: #ef4444;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }}
+      .hitl-body {{
+        color: var(--text-muted);
+        font-size: 13.5px;
+        margin-bottom: 10px;
+      }}
+
+      /* Tables */
+      table {{
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0 16px 0;
+        font-size: 13px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+      }}
+      th {{
+        background-color: var(--table-header-bg);
+        color: var(--text-muted);
+        font-weight: 600;
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }}
+      td {{
+        padding: 9px 12px;
+        border-bottom: 1px solid var(--border-subtle);
+        color: var(--text-main);
+      }}
+      tr:hover {{
+        background-color: var(--table-row-hover);
+      }}
+
+      /* Streamlit Element Overrides for Seamless Polish */
+      .stTextInput input, .stTextArea textarea, .stSelectbox select {{
+        border-radius: 6px !important;
+        border: 1px solid var(--border-color) !important;
+        background-color: var(--bg-surface) !important;
+        color: var(--text-main) !important;
+      }}
+      div[data-testid="stMetricValue"] {{
+        font-size: 24px !important;
+        font-weight: 700 !important;
+        color: var(--text-main) !important;
+      }}
+      div[data-testid="stMetricLabel"] {{
+        font-size: 12px !important;
+        color: var(--text-dim) !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+      }}
+      .stTabs [data-baseweb="tab-list"] {{
+        gap: 12px;
+        border-bottom: 1px solid var(--border-color);
+      }}
+      .stTabs [data-baseweb="tab"] {{
+        font-weight: 600;
+        font-size: 13.5px;
+        color: var(--text-muted);
+        padding-bottom: 8px;
+      }}
+      .stTabs [aria-selected="true"] {{
+        color: var(--brand-primary) !important;
+      }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 def status_badge(status: str) -> str:
@@ -240,24 +393,24 @@ def resume_worker(decision: str, comment: str = ""):
 
 def render_stream(events):
     if not events:
-        st.info("AI Worker is on standby. Select an evaluation preset and launch the agent.")
+        st.info("Agent is standing by. Choose a preset or specify a directive to begin execution.")
         return
 
     for ev in events:
         et = ev.get("event")
         if et == "TASK_STARTED":
-            st.markdown(f"**⚡ Task directive received** — `{ev.get('goal')}`")
+            st.markdown(f"**⚡ Task Directive Initialized** — `{ev.get('goal')}`")
         elif et == "PLAN_GENERATED":
             st.caption(f"🧠 Milestones Planned: {ev.get('goal_understanding', 'Plan generated')}")
         elif et == "REASONING_STEP":
             st.markdown(
-                f'<div class="thought"><b>💡 Reasoner [Step {ev.get("step_index")}]</b><br/>{ev.get("thought")}</div>',
+                f'<div class="stream-card thought"><b>💡 Reasoner [Step {ev.get("step_index")}]</b><br/>{ev.get("thought")}</div>',
                 unsafe_allow_html=True,
             )
         elif et == "ACTION_EXECUTING":
             params = json.dumps(ev.get("parameters") or {}, indent=2, default=str)
             st.markdown(
-                f'<div class="action"><b>⚙️ Action Triggered</b> · <code>{ev.get("tool_name")}</code><pre>{params}</pre></div>',
+                f'<div class="stream-card action"><b>⚙️ Action Triggered</b> · <code>{ev.get("tool_name")}</code><pre>{params}</pre></div>',
                 unsafe_allow_html=True,
             )
         elif et == "OBSERVATION_RECEIVED":
@@ -266,13 +419,13 @@ def render_stream(events):
             preview = json.dumps(compact, indent=2, default=str)
             if len(preview) > 1200:
                 preview = preview[:1200] + "\n… (truncated for readability)"
-            st.markdown(f'<div class="obs"><b>👁️ Tool Observation</b><pre>{preview}</pre></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="stream-card obs"><b>👁️ Tool Observation</b><pre>{preview}</pre></div>', unsafe_allow_html=True)
         elif et == "WAITING_FOR_USER_APPROVAL":
             st.warning("⚠️ High-Risk Action Gated: Operator approval required before executing side-effect.")
         elif et == "VERIFICATION_COMPLETED":
             vr = ev.get("verification_result") or {}
             st.markdown(
-                f'<div class="verif"><b>🔒 Independent Ground-Truth Verification</b><br/>'
+                f'<div class="stream-card verif"><b>🔒 Independent Ground-Truth Verification</b><br/>'
                 f'<b>Verdict:</b> {vr.get("verdict")}<br/>'
                 f'<b>Proof Digest:</b> <code>{vr.get("proof_signature")}</code></div>',
                 unsafe_allow_html=True,
@@ -296,33 +449,52 @@ def render_markdown_table(rows):
     st.markdown("\n".join([header_line, sep_line] + data_lines))
 
 
-init_state()
-
+# Top Header Navigation & Theme Switcher
 status = st.session_state.status
+theme_icon = "☀️ Light Mode" if is_dark else "🌙 Dark Mode"
 
-# Top Bar Hero
-st.markdown(
-    f"""
-    <div class="aura-hero">
-      <div>
-        <div class="aura-tagline">100% Python • Streamlit Control Center • Zero-Dependency ReAct Engine</div>
-        <div class="aura-title">AURA <span class="aura-gradient-text">AUTONOMOUS TASK WORKER</span></div>
-      </div>
-      <div style="text-align:right;">
-        {status_badge(status)}
-        <div style="color:#8da4ff;font-size:11.5px;margin-top:6px;font-weight:600;">
-          REASONER: {global_llm_provider.info()["label"]}
+top_left, top_right = st.columns([3.5, 1.5])
+with top_left:
+    st.markdown(
+        f"""
+        <div class="aura-header">
+          <div>
+            <div class="aura-tagline">Autonomous Enterprise Task Worker • Zero-Dependency ReAct Engine</div>
+            <div class="aura-title">
+              AURA WORKER <span class="aura-title-badge">v1.0 Production</span>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            {status_badge(status)}
+            <div style="color:var(--text-dim);font-size:11.5px;margin-top:6px;font-weight:600;">
+              ENGINE: {global_llm_provider.info()["label"]}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+        """,
+        unsafe_allow_html=True,
+    )
+
+with top_right:
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+    theme_btn_col1, theme_btn_col2 = st.columns([1, 1])
+    with theme_btn_col1:
+        if st.button(theme_icon, use_container_width=True):
+            st.session_state.theme_mode = "light" if is_dark else "dark"
+            st.rerun()
+    with theme_btn_col2:
+        if st.button("🔄 Reset App", use_container_width=True):
+            erp_instance.reset()
+            st.session_state.events = []
+            st.session_state.result = None
+            st.session_state.worker = None
+            st.session_state.status = "STANDBY / READY"
+            st.rerun()
 
 left, right = st.columns([1.15, 1], gap="large")
 
 with left:
-    st.markdown("### 🎯 Task Directive & Execution")
+    st.markdown("#### 🎯 Directive & Execution Control")
     preset = st.radio(
         "Evaluation presets",
         list(PRESETS.keys()),
@@ -333,29 +505,29 @@ with left:
         st.session_state.goal = PRESETS[preset]
         st.session_state.last_preset = preset
 
-    goal = st.text_area("Natural language objective", value=st.session_state.goal, height=95)
+    goal = st.text_area("Task Objective", value=st.session_state.goal, height=95)
     st.session_state.goal = goal
 
-    col_opt1, col_opt2 = st.columns([1, 1])
+    col_opt1, _ = st.columns([1.2, 0.8])
     with col_opt1:
         auto = st.checkbox("⚡ Auto-approve high-risk actions (Bypass HITL)", value=st.session_state.auto_approve)
         st.session_state.auto_approve = auto
 
-    c1, c2, c3 = st.columns([1.4, 1, 1])
+    c1, c2, c3 = st.columns([1.5, 1, 1])
     with c1:
-        launch = st.button("🚀 Launch Autonomous Worker", type="primary", use_container_width=True)
+        launch = st.button("🚀 Launch Worker", type="primary", use_container_width=True)
     with c2:
-        reset = st.button("🔄 Reset ERP & State", use_container_width=True)
+        reset_erp = st.button("🔄 Reset ERP", use_container_width=True)
     with c3:
         abort = st.button("⏹ Abort", use_container_width=True)
 
-    if reset:
+    if reset_erp:
         erp_instance.reset()
         st.session_state.events = []
         st.session_state.result = None
         st.session_state.worker = None
         st.session_state.status = "STANDBY / READY"
-        st.success("Simulated ERP records, database, and logs reset to clean bootstrap state.")
+        st.success("Simulated ERP database, file systems, and logs restored to clean bootstrap state.")
         st.rerun()
 
     if abort and st.session_state.worker:
@@ -367,7 +539,7 @@ with left:
         run_worker(goal, auto)
         st.rerun()
 
-    # Human-In-The-Loop Modal / Box
+    # Human-In-The-Loop Approval Box
     result = st.session_state.result or {}
     if result.get("status") == "WAITING_FOR_APPROVAL":
         approval = result.get("approval") or {}
@@ -375,11 +547,11 @@ with left:
         action = result.get("intended_action") or {}
         st.markdown(
             f"""
-            <div class="hitl-box">
-              <div style="font-size:16px;font-weight:800;color:#ff6b8b;margin-bottom:6px;">
-                🛑 HUMAN-IN-THE-LOOP APPROVAL REQUIRED
+            <div class="hitl-container">
+              <div class="hitl-title">
+                🛑 Human-in-the-Loop Operator Authorization Required
               </div>
-              <div style="color:#ffd3df;font-size:13.5px;margin-bottom:8px;">
+              <div class="hitl-body">
                 {risk.get("reason") or approval.get("reason")}
               </div>
             </div>
@@ -390,10 +562,10 @@ with left:
             json.dumps({"action": action.get("name"), "parameters": action.get("parameters")}, indent=2, default=str),
             language="json",
         )
-        comment = st.text_input("Optional authorization note or operator comment", key="hitl_comment")
+        comment = st.text_input("Authorization note or operator comment", key="hitl_comment")
         a1, a2 = st.columns(2)
         with a1:
-            if st.button("✅ Approve & Continue Execution", type="primary", use_container_width=True):
+            if st.button("✅ Authorize Action", type="primary", use_container_width=True):
                 resume_worker("APPROVED", comment)
                 st.rerun()
         with a2:
@@ -404,14 +576,14 @@ with left:
     # Plan Milestone Tracker
     plan = (st.session_state.result or {}).get("plan") or []
     if plan:
-        st.markdown("### 📋 Decomposed Milestone Plan")
+        st.markdown("#### 📋 Milestone Plan Execution")
         done = sum(1 for s in plan if s.get("status") == "COMPLETED")
         st.progress(done / len(plan), text=f"Progress: {done} / {len(plan)} milestones completed")
         for step in plan:
             mark = "✅" if step.get("status") == "COMPLETED" else "⚪"
             st.write(f"{mark} **{step.get('id')}. {step.get('title')}** — {step.get('description')}")
 
-    st.markdown("### 🧠 Cognitive ReAct Stream (Live Execution Trace)")
+    st.markdown("#### 🧠 Live Execution Trace (ReAct Engine)")
     render_stream(st.session_state.events)
 
 with right:
@@ -429,7 +601,7 @@ with right:
         m2.metric("Open Accounts Payable", f"${ap_total:,.2f}")
         m3.metric("Registered Vendors", len(vendors))
 
-        st.markdown("#### 📑 Accounts Payable Invoices")
+        st.markdown("##### 📑 Accounts Payable Invoices")
         if invoices:
             inv_rows = [
                 {
@@ -447,7 +619,7 @@ with right:
         else:
             st.caption("No invoices in ERP database.")
 
-        st.markdown("#### 🏢 Vendor Master Directory")
+        st.markdown("##### 🏢 Vendor Master Directory")
         vend_rows = [
             {
                 "Vendor ID": v.get("id"),
@@ -460,7 +632,7 @@ with right:
         ]
         render_markdown_table(vend_rows)
 
-        st.markdown("#### 📜 System Audit Trail (Last 10 Records)")
+        st.markdown("##### 📜 System Audit Trail (Last 10 Records)")
         logs = erp_instance.audit_logs[-10:]
         logs.reverse()
         log_rows = [
@@ -525,5 +697,5 @@ with right:
             c_s2.metric("Total Steps", summ.get("total_steps_executed", 0))
             c_s3.metric("Errors Recovered", summ.get("errors_encountered", 0))
 
-            st.markdown("#### 🔍 Extracted State & Variables")
+            st.markdown("##### 🔍 Extracted State & Variables")
             st.json(res.get("discovered_state") or {})
