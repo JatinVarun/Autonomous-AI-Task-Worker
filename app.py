@@ -48,10 +48,9 @@ init_state()
 
 is_dark = st.session_state.theme_mode == "dark"
 
-# Comprehensive theme definitions ensuring high contrast and clean professional styling
+# Theme Variables and Global Overrides
 if is_dark:
-    theme_css = """
-    :root {
+    theme_vars = """
       --bg-page: #0b0f17;
       --bg-surface: #111827;
       --bg-surface-elevated: #1e293b;
@@ -65,22 +64,24 @@ if is_dark:
       --primary: #3b82f6;
       --primary-hover: #2563eb;
       --primary-glow: rgba(59, 130, 246, 0.15);
-      --card-thought: rgba(59, 130, 246, 0.08);
-      --card-action: rgba(245, 158, 11, 0.08);
-      --card-obs: rgba(16, 185, 129, 0.08);
-      --card-verif: rgba(139, 92, 246, 0.08);
+      --card-thought-bg: rgba(59, 130, 246, 0.08);
+      --card-thought-text: #bfdbfe;
+      --card-action-bg: rgba(245, 158, 11, 0.08);
+      --card-action-text: #fde68a;
+      --card-obs-bg: rgba(16, 185, 129, 0.08);
+      --card-obs-text: #a7f3d0;
+      --card-verif-bg: rgba(139, 92, 246, 0.08);
+      --card-verif-text: #ddd6fe;
       --input-bg: #111827;
+      --btn-sec-bg: #1e293b;
+      --btn-sec-color: #f1f5f9;
+      --btn-sec-border: #334155;
+      --btn-sec-hover-bg: #273549;
       --table-header: #1f2937;
-      --table-row-alt: #162032;
-    }
-    .stApp {
-      background-color: var(--bg-page) !important;
-      color: var(--text-body) !important;
-    }
+      --table-row-hover: #162032;
     """
 else:
-    theme_css = """
-    :root {
+    theme_vars = """
       --bg-page: #f8fafc;
       --bg-surface: #ffffff;
       --bg-surface-elevated: #ffffff;
@@ -94,21 +95,21 @@ else:
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
       --primary-glow: rgba(37, 99, 235, 0.08);
-      --card-thought: #eff6ff;
-      --card-action: #fffbeb;
-      --card-obs: #f0fdf4;
-      --card-verif: #faf5ff;
+      --card-thought-bg: #eff6ff;
+      --card-thought-text: #1e3a8a;
+      --card-action-bg: #fffbeb;
+      --card-action-text: #78350f;
+      --card-obs-bg: #f0fdf4;
+      --card-obs-text: #064e3b;
+      --card-verif-bg: #faf5ff;
+      --card-verif-text: #581c87;
       --input-bg: #ffffff;
+      --btn-sec-bg: #ffffff;
+      --btn-sec-color: #0f172a;
+      --btn-sec-border: #cbd5e1;
+      --btn-sec-hover-bg: #f1f5f9;
       --table-header: #f1f5f9;
-      --table-row-alt: #f8fafc;
-    }
-    .stApp {
-      background-color: var(--bg-page) !important;
-      color: var(--text-body) !important;
-    }
-    header, footer {
-      background-color: var(--bg-page) !important;
-    }
+      --table-row-hover: #f8fafc;
     """
 
 st.markdown(
@@ -116,9 +117,11 @@ st.markdown(
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-      {theme_css}
+      :root {{
+        {theme_vars}
+      }}
 
-      /* Global resets & typography */
+      /* Base layout & typography */
       html, body, [class*="css"], .stMarkdown, .stText {{
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
       }}
@@ -126,22 +129,27 @@ st.markdown(
         font-family: 'JetBrains Mono', Consolas, monospace !important;
       }}
 
-      /* Fix top header cutoff: Streamlit cloud top bar requires generous padding */
+      .stApp {{
+        background-color: var(--bg-page) !important;
+        color: var(--text-body) !important;
+      }}
+      header, footer, header[data-testid="stHeader"] {{
+        background: transparent !important;
+        z-index: 99 !important;
+      }}
+
+      /* Header clear space to prevent any cut off on cloud */
       .block-container {{
         padding-top: 5rem !important;
         padding-bottom: 3rem !important;
         max-width: 1560px !important;
       }}
-      header[data-testid="stHeader"] {{
-        background: transparent !important;
-        z-index: 99 !important;
-      }}
 
-      /* Universal text color enforcement */
+      /* Text color enforcement */
       h1, h2, h3, h4, h5, h6, strong {{
         color: var(--text-heading) !important;
       }}
-      p, span, div, label {{
+      p, span, label {{
         color: var(--text-body);
       }}
       .stCaption, small {{
@@ -159,8 +167,8 @@ st.markdown(
         border: 1px solid var(--border-main);
         border-radius: 12px;
         padding: 16px 22px;
-        margin-bottom: 22px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        margin-bottom: 18px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
       }}
       .app-brand {{
         display: flex;
@@ -242,6 +250,76 @@ st.markdown(
         50% {{ opacity: 0.65; }}
       }}
 
+      /* Streamlit Button System Overhaul (Light & Dark Mode) */
+      .stButton > button {{
+        background-color: var(--btn-sec-bg) !important;
+        color: var(--btn-sec-color) !important;
+        border: 1px solid var(--btn-sec-border) !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        font-size: 13px !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+        transition: all 0.15s ease-in-out !important;
+      }}
+      .stButton > button p, .stButton > button span, .stButton > button div {{
+        color: var(--btn-sec-color) !important;
+      }}
+      .stButton > button:hover {{
+        background-color: var(--btn-sec-hover-bg) !important;
+        border-color: var(--primary) !important;
+        color: var(--primary) !important;
+      }}
+      .stButton > button:hover p, .stButton > button:hover span {{
+        color: var(--primary) !important;
+      }}
+
+      /* Primary Button Styling */
+      .stButton > button[kind="primary"], button[data-testid="baseButton-primary"] {{
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+        color: #ffffff !important;
+        border: 1px solid #2563eb !important;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
+      }}
+      .stButton > button[kind="primary"] p, button[data-testid="baseButton-primary"] p,
+      .stButton > button[kind="primary"] span, button[data-testid="baseButton-primary"] span {{
+        color: #ffffff !important;
+      }}
+      .stButton > button[kind="primary"]:hover {{
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+        border-color: #1d4ed8 !important;
+        color: #ffffff !important;
+      }}
+
+      /* Radio Buttons & Checkboxes */
+      div[data-testid="stRadio"] label, div[data-testid="stRadio"] div, div[data-testid="stRadio"] p {{
+        color: var(--text-heading) !important;
+      }}
+      div[data-testid="stRadio"] > div {{
+        gap: 16px;
+      }}
+      div[data-testid="stRadio"] [data-testid="stWidgetLabel"] p {{
+        color: var(--text-muted) !important;
+        font-weight: 600;
+        font-size: 12.5px;
+      }}
+      div[data-testid="stCheckbox"] label, div[data-testid="stCheckbox"] p, div[data-testid="stCheckbox"] span {{
+        color: var(--text-heading) !important;
+        font-size: 13.5px !important;
+      }}
+
+      /* Input Fields */
+      .stTextInput input, .stTextArea textarea, .stSelectbox select, div[data-baseweb="select"] > div {{
+        background-color: var(--input-bg) !important;
+        color: var(--text-heading) !important;
+        border: 1px solid var(--border-strong) !important;
+        border-radius: 8px !important;
+        font-size: 14px !important;
+      }}
+      .stTextInput input:focus, .stTextArea textarea:focus {{
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 2px var(--primary-glow) !important;
+      }}
+
       /* Cards for stream events */
       .stream-card {{
         padding: 14px 18px;
@@ -258,32 +336,23 @@ st.markdown(
       }}
       .thought {{
         border-left-color: #3b82f6;
-        background-color: var(--card-thought);
+        background-color: var(--card-thought-bg);
+        color: var(--card-thought-text);
       }}
       .action {{
         border-left-color: #f59e0b;
-        background-color: var(--card-action);
+        background-color: var(--card-action-bg);
+        color: var(--card-action-text);
       }}
       .obs {{
         border-left-color: #10b981;
-        background-color: var(--card-obs);
+        background-color: var(--card-obs-bg);
+        color: var(--card-obs-text);
       }}
       .verif {{
         border-left-color: #8b5cf6;
-        background-color: var(--card-verif);
-      }}
-
-      /* Streamlit Input Overrides */
-      .stTextInput input, .stTextArea textarea, .stSelectbox select {{
-        background-color: var(--input-bg) !important;
-        color: var(--text-heading) !important;
-        border: 1px solid var(--border-strong) !important;
-        border-radius: 8px !important;
-        font-size: 14px !important;
-      }}
-      .stTextInput input:focus, .stTextArea textarea:focus {{
-        border-color: var(--primary) !important;
-        box-shadow: 0 0 0 2px var(--primary-glow) !important;
+        background-color: var(--card-verif-bg);
+        color: var(--card-verif-text);
       }}
 
       /* Code / Pre Blocks */
@@ -292,7 +361,7 @@ st.markdown(
         border: 1px solid var(--border-main) !important;
         border-radius: 6px !important;
         padding: 10px 14px !important;
-        color: var(--text-body) !important;
+        color: var(--text-heading) !important;
         font-size: 12px !important;
       }}
       code {{
@@ -301,18 +370,18 @@ st.markdown(
 
       /* Metrics styling */
       div[data-testid="stMetric"] {{
-        background: var(--bg-surface);
-        border: 1px solid var(--border-main);
-        border-radius: 10px;
-        padding: 14px 16px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        background: var(--bg-surface) !important;
+        border: 1px solid var(--border-main) !important;
+        border-radius: 10px !important;
+        padding: 14px 16px !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
       }}
       div[data-testid="stMetricValue"] {{
         font-size: 24px !important;
         font-weight: 800 !important;
         color: var(--text-heading) !important;
       }}
-      div[data-testid="stMetricLabel"] {{
+      div[data-testid="stMetricLabel"] p, div[data-testid="stMetricLabel"] span {{
         font-size: 11.5px !important;
         font-weight: 700 !important;
         color: var(--text-muted) !important;
@@ -347,6 +416,7 @@ st.markdown(
         border: 1px solid var(--border-main);
         border-radius: 8px;
         overflow: hidden;
+        background-color: var(--bg-surface);
       }}
       th {{
         background-color: var(--table-header);
@@ -362,22 +432,10 @@ st.markdown(
       td {{
         padding: 10px 14px;
         border-bottom: 1px solid var(--border-main);
-        color: var(--text-body) !important;
+        color: var(--text-heading) !important;
       }}
       tr:hover {{
-        background-color: var(--bg-surface-elevated);
-      }}
-
-      /* Button refinement */
-      .stButton > button {{
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        font-size: 13px !important;
-        border: 1px solid var(--border-strong) !important;
-        transition: all 0.15s ease-in-out !important;
-      }}
-      .stButton > button:hover {{
-        border-color: var(--primary) !important;
+        background-color: var(--table-row-hover);
       }}
 
       /* Human-in-the-loop box */
@@ -396,7 +454,7 @@ st.markdown(
       }}
       .hitl-desc {{
         font-size: 13px;
-        color: var(--text-body);
+        color: var(--text-heading);
       }}
     </style>
     """,
@@ -498,7 +556,6 @@ def render_markdown_table(rows):
 
 # Top Header Navigation Bar
 status = st.session_state.status
-theme_icon = "☀️ Light Mode" if is_dark else "🌙 Dark Mode"
 
 st.markdown(
     f"""
@@ -519,12 +576,16 @@ st.markdown(
 )
 
 # Utility Row for Controls (Theme Toggle & System Reset)
+# In Light Mode -> button offers option "🌙 Dark Mode"
+# In Dark Mode -> button offers option "☀️ Light Mode"
+theme_switch_label = "🌙 Dark Mode" if not is_dark else "☀️ Light Mode"
+
 ctrl_col1, ctrl_col2, ctrl_col3 = st.columns([3, 1, 1])
 with ctrl_col1:
     st.caption(f"Reasoning Core: **{global_llm_provider.info()['label']}** • Enterprise Edition v1.0")
 with ctrl_col2:
-    if st.button(theme_icon, use_container_width=True):
-        st.session_state.theme_mode = "light" if is_dark else "dark"
+    if st.button(theme_switch_label, use_container_width=True):
+        st.session_state.theme_mode = "dark" if not is_dark else "light"
         st.rerun()
 with ctrl_col3:
     if st.button("🔄 Reset Environment", use_container_width=True):
